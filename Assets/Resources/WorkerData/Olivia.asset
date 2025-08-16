@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be52a980d0ce60d4eb26e325ea322bb8, type: 3}
+  m_Name: Olivia
+  m_EditorClassIdentifier: 
+  workerName: Olivia
+  completiontimeperBox: 1
+  numBox: 16
+  spawnPointID: 4
+  dropoffLocationID: 3
+  avatarPrefab: {fileID: 1625499083773647757, guid: 19bdf007661510347814c938fb2d66c9,
+    type: 3}
+  isFinish: 0

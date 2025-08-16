@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be52a980d0ce60d4eb26e325ea322bb8, type: 3}
+  m_Name: Lucas
+  m_EditorClassIdentifier: 
+  workerName: Lucas
+  completiontimeperBox: 1
+  numBox: 16
+  spawnPointID: 3
+  dropoffLocationID: 3
+  avatarPrefab: {fileID: 8114348557914943903, guid: b97e5cfa5b525bf4b831ef2e5b2b97c4,
+    type: 3}
+  isFinish: 0
