@@ -1,11 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
-public class BoxData : MonoBehaviour
+public class BoxData : NetworkBehaviour
 {
     public bool isComplete = false;
+    public NetworkVariable<bool> IsComplete = new(
+        false,
+        NetworkVariableReadPermission.Everyone,
+        NetworkVariableWritePermission.Server);
+    [ServerRpc(RequireOwnership = false)]
+    public void MarkCompleteServerRpc()
+    {
+        if (!IsComplete.Value)
+            IsComplete.Value = true;
+    }
     public WorkerData assignedWorkerData = null;
+
 
     void Awake()
     {

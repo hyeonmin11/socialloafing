@@ -243,7 +243,10 @@ public class BoxManager : NetworkBehaviour
         if (obs) obs.enabled = true;
 
         // 상태 초기화
-        box.isComplete = false;
+        if (box.IsSpawned && IsServer)
+        {
+            box.IsComplete.Value = false;  // ✅ 모든 클라이언트로 자동 전파
+        }
     }
 
 }

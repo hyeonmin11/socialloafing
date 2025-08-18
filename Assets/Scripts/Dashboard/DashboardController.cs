@@ -217,14 +217,11 @@ public class DashboardController : MonoBehaviour
     }
     public void SetWorkers(List<Worker> workers, bool anonymous)
     {
-
         if (dashboardKind == DashboardKind.TeamOnly)
         {
-            // TeamOnly: 5팀 집계 표시
             _allWorkers = workers ?? new List<Worker>();
             BuildTeamsForTeamOnly();
 
-            // 팀 헤더 설정
             EnsureDisplayCount(5);
             if (workerDisplays.Count >= 5)
             {
@@ -237,18 +234,38 @@ public class DashboardController : MonoBehaviour
 
             if (_teamOnlyLoop != null) StopCoroutine(_teamOnlyLoop);
             _teamOnlyLoop = StartCoroutine(UpdateTeamCountsLoop());
-
-            return; // Personal/PersonalTeam 로직은 아래로 내리지 않음
+            return;
         }
 
-        var sorted = workers.OrderByDescending(w => w.IsPlayer).ToList();
+        // ------- Personal(개인 카드) 정렬: Player 다음에 Mia가 오도록 -------
+        var list = (workers ?? new List<Worker>()).Where(w => w != null).ToList();
+        var player = list.FirstOrDefault(w => w.IsPlayer);
+        var mia    = FindWorkerByName(list, "Mia");
+
+        // 기본: 플레이어 우선 내림차순
+        var sorted = list.OrderByDescending(w => w.IsPlayer).ToList();
+
+        // 플레이어 다음에 Mia를 배치(둘 다 있을 때, Mia가 이미 2번째가 아니면 재배치)
+        if (player != null && mia != null && mia != player)
+        {
+            // 일단 Mia 제거 후
+            sorted.Remove(mia);
+
+            // 플레이어 인덱스 바로 다음에 삽입
+            int pIndex = sorted.IndexOf(player);
+            if (pIndex < 0) pIndex = 0;
+            int targetIndex = Mathf.Min(pIndex + 1, sorted.Count);
+            sorted.Insert(targetIndex, mia);
+        }
+
+        // UI 반영
         for (int i = 0; i < sorted.Count && i < workerDisplays.Count; i++)
         {
             string displayName = anonymous ? $"M{i}" : sorted[i].WorkerData.WorkerName;
-            Debug.Log("Dashboardcontrol " + displayName);
             workerDisplays[i].SetWorker(sorted[i].WorkerData, displayName);
         }
     }
+
 
     public void StartTimer(int seconds, Action onFinished)
     {
@@ -280,13 +297,20 @@ public class DashboardController : MonoBehaviour
         var players = _allWorkers.Where(w => w && w.IsPlayer).ToList();
         var agents  = _allWorkers.Where(w => w && !w.IsPlayer).ToList();
 
-        // 0번: 플레이어 2명
+        // --- 싱글 모드 가정: 플레이어 1명 ---
+        var player = (players.Count > 0) ? players[0] : null;
+        var mia    = FindWorkerByName(_allWorkers, "Mia");
+
+        // 0번 팀: 플레이어 + Mia (있으면)
         var team0 = new List<Worker>();
-        if (players.Count > 0) team0.Add(players[0]);
-        if (players.Count > 1) team0.Add(players[1]);
+        if (player != null) team0.Add(player);
+        if (mia != null && mia != player) team0.Add(mia);
         _teams.Add(team0);
 
-        // 1~4번: 에이전트 2명씩
+        // 에이전트 풀에서 Mia를 제거(중복 배치 방지)
+        if (mia != null) agents.Remove(mia);
+
+        // 1~4번: 남은 에이전트를 2명씩 채우기
         int idx = 0;
         for (int t = 1; t <= 4; t++)
         {
@@ -298,6 +322,7 @@ public class DashboardController : MonoBehaviour
 
         while (_teams.Count < 5) _teams.Add(new List<Worker>());
     }
+
 
     private IEnumerator UpdateTeamCountsLoop()
     {
@@ -328,5 +353,15 @@ public class DashboardController : MonoBehaviour
         if (workerDisplays.Count < min)
             Debug.LogWarning($"DashboardController: workerDisplays needs at least {min} items for this layout.");
     }
+
+    private static Worker FindWorkerByName(IEnumerable<Worker> list, string name)
+    {
+        if (list == null) return null;
+        return list.FirstOrDefault(w =>
+            w != null &&
+            w.WorkerData != null &&
+            string.Equals(w.WorkerData.WorkerName, name, System.StringComparison.OrdinalIgnoreCase));
+    }
+
 
 }

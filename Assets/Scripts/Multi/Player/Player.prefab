@@ -17426,6 +17426,7 @@ GameObject:
   - component: {fileID: 3750321932346353444}
   - component: {fileID: 313024312964314504}
   - component: {fileID: -7503520402435969251}
+  - component: {fileID: 3552536679402943685}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -17571,6 +17572,23 @@ MonoBehaviour:
     m_InternalValue: -1
   NV_CompletionTimePerBox:
     m_InternalValue: 0
+--- !u!114 &3552536679402943685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609236076278253552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7f5c8cea56fff9408ae8c7f92847f34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locomotor: {fileID: 5723245759538862727}
+  step: 2
+  minSpeed: 5
+  maxSpeed: 80
+  logToConsole: 1
 --- !u!1 &1611567428040533215
 GameObject:
   m_ObjectHideFlags: 0
@@ -77004,7 +77022,7 @@ Transform:
   m_GameObject: {fileID: 7024722605835765915}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -83799,7 +83817,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3319186576251675991
 Transform:
   m_ObjectHideFlags: 0

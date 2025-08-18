@@ -7556,11 +7556,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Wed July
-
-    15 2025
-
-    20:37:15'
+  m_text: 00:00
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fe048c87913c58a419387f5dd8eb278a, type: 2}
   m_sharedMaterial: {fileID: 2028155937792524463, guid: fe048c87913c58a419387f5dd8eb278a,

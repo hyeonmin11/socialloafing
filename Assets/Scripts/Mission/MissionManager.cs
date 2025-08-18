@@ -184,6 +184,10 @@ public class MissionManager : MonoBehaviour
             {
                 continue;
             }
+            if (w.WorkerData.WorkerName != "Mia")
+            {
+                continue;
+            }
             var agent = w.GetComponent<UnityEngine.AI.NavMeshAgent>();
             if (agent) agent.speed = speed;
 

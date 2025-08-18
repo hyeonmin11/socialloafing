@@ -11,8 +11,8 @@ public class URPOutlineApplier : MonoBehaviour
     void Awake()
     {
 
-        if (NetworkManager.Singleton == null || !NetworkManager.Singleton.IsListening)
-            return;
+        // if (NetworkManager.Singleton == null || !NetworkManager.Singleton.IsListening)
+        //     return;
 
         if (outlineMaterialTemplate == null)
         {
